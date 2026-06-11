@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.dirtyworks.gitbash-direct": {
+      "version": "https://github.com/DirtyLeon/DW-GitBash-Direct.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4a70adcaaca4b114fdddd0ec85b9353a2c744f9d"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.12",
       "depth": 0,
