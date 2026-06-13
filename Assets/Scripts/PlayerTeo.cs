@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerTeo : MonoBehaviour
@@ -5,6 +6,8 @@ public class PlayerTeo : MonoBehaviour
     public PlayerInputHandler input;
 
     public Animator anim;
+
+    public List<PlayerHitbox> hitboxes = new List<PlayerHitbox>();
 
     private float horizontal = 0f;
     private float vertical = 0f;
@@ -20,20 +23,16 @@ public class PlayerTeo : MonoBehaviour
     private void Movement()
     {
         if (horizontal < -.1f)
-        {
             anim.SetBool("LeftDodge", true);
-        }
         else
-        {
             anim.SetBool("LeftDodge", false);
-        }
 
         if(horizontal > .1f)
             anim.SetBool("RightDodge", true);
         else
             anim.SetBool("RightDodge", false);
 
-        if(vertical < .1f)
+        if(vertical < -.1f)
             anim.SetBool("DownDodge", true);
         else
             anim.SetBool("DownDodge", false);
