@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.dirtyworks.gitbash-direct": "https://github.com/DirtyLeon/DW-GitBash-Direct.git",
+    "com.dirtyworks.universialdebugtrigger": "https://github.com/DirtyLeon/Universial-Debug-Trigger.git",
     "com.unity.ai.navigation": "2.0.12",
     "com.unity.animation.rigging": "1.4.1",
     "com.unity.cinemachine": "3.1.7",

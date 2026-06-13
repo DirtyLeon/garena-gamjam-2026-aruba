@@ -14,6 +14,13 @@
       "dependencies": {},
       "hash": "4a70adcaaca4b114fdddd0ec85b9353a2c744f9d"
     },
+    "com.dirtyworks.universialdebugtrigger": {
+      "version": "https://github.com/DirtyLeon/Universial-Debug-Trigger.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0740cd7d566b18b48b9265d42b3adaa7039b3425"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.12",
       "depth": 0,
