@@ -7,10 +7,10 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public InputActionAsset inputActionMap;
 
-    [SerializeField] private InputActionReference inputMove;
-    [SerializeField] private InputActionReference inputLook;
-    [SerializeField] private InputActionReference inputJump;
-    [SerializeField] private InputActionReference inputSprint;
+    [SerializeField] public InputActionReference inputMove;
+    [SerializeField] public InputActionReference inputLook;
+    [SerializeField] public InputActionReference inputJump;
+    [SerializeField] public InputActionReference inputSprint;
 
     [ReadOnly] public Vector2 Move;
     [ReadOnly] public Vector2 Look;
