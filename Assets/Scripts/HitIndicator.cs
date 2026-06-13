@@ -9,8 +9,6 @@ public class HitIndicator : MonoBehaviour
     public CanvasGroup canvasGroup;
     public Image fill;
 
-    private CancellationTokenSource indicateCancel;
-
     private void Awake()
     {
         canvasGroup.alpha = 0;
@@ -20,18 +18,10 @@ public class HitIndicator : MonoBehaviour
     
     private async UniTask HitIncoming(float duration)
     {
-        
-        if(indicateCancel.Token != null)
-        {
-            indicateCancel.Cancel();
-            indicateCancel.Dispose();
-        }
-
-        indicateCancel = new CancellationTokenSource();
 
         fill.rectTransform.localScale = Vector3.zero;
         canvasGroup.DOFade(1, .3f).ToUniTask().Forget();
-        await fill.rectTransform.DOScale(1f, duration).ToUniTask(cancellationToken: indicateCancel.Token);
+        await fill.rectTransform.DOScale(1f, duration);
         canvasGroup.alpha = 0f;
     }
 }
