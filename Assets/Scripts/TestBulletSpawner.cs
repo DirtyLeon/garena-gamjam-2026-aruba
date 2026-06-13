@@ -10,6 +10,25 @@ public class TestBulletSpawner : MonoBehaviour
 
     private float _timer;
 
+    private void Awake()
+    {
+        // 訂閱事件（Awake 不受 enabled 影響）
+        LoadSceneSystem.Instance.onLoadSceneCompleted += OnSceneReady;
+        // 初始停用 Update，等場景載入完成後再啟動
+        enabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (LoadSceneSystem.Instance != null)
+            LoadSceneSystem.Instance.onLoadSceneCompleted -= OnSceneReady;
+    }
+
+    private void OnSceneReady()
+    {
+        enabled = true;
+    }
+
     private void Start()
     {
         // Position spawner in front of target (facing them)
