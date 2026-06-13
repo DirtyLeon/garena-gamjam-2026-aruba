@@ -3,50 +3,41 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Animator")]
     [SerializeField] private Animator animator;
 
-    [Header("Animation State Names")]
-    [SerializeField] private string idleStateName   = "Idle";
-    [SerializeField] private string dodgeAStateName = "Dodge_A";
-    [SerializeField] private string dodgeSStateName = "Dodge_S";
-    [SerializeField] private string dodgeDStateName = "Dodge_D";
+    private const string Idle = "root|Idle";
+    private const string DodgeLeft = "root|dodge_Left";
+    private const string DodgeRight = "root|dodge_Right";
+    private const string DodgeDown = "root|DownDodge";
 
-    private string _currentState = "";
+    private string _currentState;
 
     private void Start()
     {
-        PlayClip(idleStateName);
+        _currentState = Idle;
     }
 
     private void Update()
     {
-        HandleInput();
-        CheckAutoIdle();
-    }
-
-    private void HandleInput()
-    {
-        if (Keyboard.current.aKey.wasPressedThisFrame) PlayClip(dodgeAStateName);
-        if (Keyboard.current.sKey.wasPressedThisFrame) PlayClip(dodgeSStateName);
-        if (Keyboard.current.dKey.wasPressedThisFrame) PlayClip(dodgeDStateName);
+        if (Keyboard.current.aKey.wasPressedThisFrame) PlayState(DodgeLeft);
+        else if (Keyboard.current.dKey.wasPressedThisFrame) PlayState(DodgeRight);
+        else if (Keyboard.current.sKey.wasPressedThisFrame) PlayState(DodgeDown);
+        else CheckAutoIdle();
     }
 
     private void CheckAutoIdle()
     {
-        if (_currentState == idleStateName) return;
-
+        if (_currentState == Idle) return;
         var info = animator.GetCurrentAnimatorStateInfo(0);
-        if (info.IsName(_currentState) && info.normalizedTime >= 1f)
-            PlayClip(idleStateName);
+        if (info.normalizedTime >= 1f)
+            PlayState(Idle);
     }
 
-    private void PlayClip(string stateName)
+    private void PlayState(string stateName)
     {
         _currentState = stateName;
         animator.Play(stateName, 0, 0f);
     }
 
-    public void ForceIdle() => PlayClip(idleStateName);
-    public string CurrentState => _currentState;
+    public void ForceIdle() => PlayState(Idle);
 }
