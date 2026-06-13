@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerTeo : MonoBehaviour
 {
+    public static System.Action onPlayerFailed;
+
     public PlayerInputHandler input;
 
     public Animator anim;
@@ -11,6 +13,22 @@ public class PlayerTeo : MonoBehaviour
 
     private float horizontal = 0f;
     private float vertical = 0f;
+    private const int MAX_HEALTH = 2;
+    [ReadOnly] private int currentHealth = 2;
+
+    private void OnEnable()
+    {
+        MatrixGameManager.onTeoInit += Init;
+        foreach(var hitbox in hitboxes)
+            hitbox.onHitAction += OnHit;
+    }
+
+    void OnDisable()
+    {
+        MatrixGameManager.onTeoInit -= Init;
+        foreach(var hitbox in hitboxes)
+            hitbox.onHitAction -= OnHit;
+    }
 
     private void Update()
     {
@@ -36,5 +54,17 @@ public class PlayerTeo : MonoBehaviour
             anim.SetBool("DownDodge", true);
         else
             anim.SetBool("DownDodge", false);
+    }
+
+    public void Init()
+    {
+        currentHealth = MAX_HEALTH;
+    }
+
+    public void OnHit()
+    {
+        currentHealth -= 1;
+        if(currentHealth <= 0)
+            onPlayerFailed?.Invoke();
     }
 }

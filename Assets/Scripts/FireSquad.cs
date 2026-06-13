@@ -9,11 +9,13 @@ public class FireSquad : MonoBehaviour
 
     public void Fire(Vector3 _targetPosition, float _flyDuration)
     {
-        indicator.transform.position = _targetPosition;
+        var instancedIndicator = Instantiate(indicator);
+        instancedIndicator.transform.position = _targetPosition;
         anim.SetTrigger("Shoot");
         var bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet.flyDuration = _flyDuration;
+        bullet.SetIndicator(instancedIndicator);
         bullet.ShootAt(_targetPosition);
-        indicator.HitIncomingInvoke(_flyDuration);
+        instancedIndicator.HitIncomingInvoke(_flyDuration);
     }
 }
