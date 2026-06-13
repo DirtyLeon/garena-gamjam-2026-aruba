@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6416264896000418268}
   - component: {fileID: 8085422597011799083}
   - component: {fileID: -1477495296940931532}
+  - component: {fileID: 8750918148708857922}
   m_Layer: 0
   m_Name: LoadSceneSystem
   m_TagString: Untagged
@@ -146,3 +147,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8750918148708857922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168749057579795084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcee6f50286d26b4183d1ba9d3eb7891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DirtyWorks.Universial-Debug-Trigger::DirtyWorks.Tools.UniversialDebugTrigger
+  DebugEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8085422597011799083}
+        m_TargetAssemblyTypeName: LoadSceneSystem, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
