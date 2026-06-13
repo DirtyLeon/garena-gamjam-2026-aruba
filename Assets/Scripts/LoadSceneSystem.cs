@@ -30,26 +30,8 @@ public class LoadSceneSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Play Mode 啟動時自動從 Resources 載入，不需要手動放場景。
-    /// </summary>
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void AutoInit()
-    {
-        if (instance != null) return;
-
-        var prefab = Resources.Load<LoadSceneSystem>("LoadSceneSystem");
-        if (prefab != null)
-        {
-            var obj = Instantiate(prefab);
-            obj.name = "LoadSceneSystem";
-        }
-        else
-        {
-            Debug.LogError("[LoadSceneSystem] Resources/LoadSceneSystem prefab 找不到！");
-        }
-    }
-
+   
+   
     // --- Events ---
     public event Action onLoadSceneStart;
     public event Action onLoadSceneCompleted;
