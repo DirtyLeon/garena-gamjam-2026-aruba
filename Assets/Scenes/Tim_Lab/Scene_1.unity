@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &123228115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123228117}
+  - component: {fileID: 123228116}
+  m_Layer: 0
+  m_Name: LoadSceneTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &123228116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123228115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f314eb61f501d442da033d71886616fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoadSceneTest
+--- !u!4 &123228117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123228115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.52671, y: 0.5, z: -2.05671}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &731707072
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413107184}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13664135, y: 0, z: 0, w: 0.9906206}
+  m_LocalRotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: -0.13735, y: 2.704, z: -2.46587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1086,3 +1130,4 @@ SceneRoots:
   - {fileID: 888000003}
   - {fileID: 1382954509}
   - {fileID: 1277064497}
+  - {fileID: 123228117}
