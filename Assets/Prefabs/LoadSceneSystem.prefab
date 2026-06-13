@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoadSceneSystem
   transitionSFXClip: {fileID: 8300000, guid: 433aecef7056646c49a09f004bfa3808, type: 3}
   transitionAudioSource: {fileID: -1477495296940931532}
-  loadingScreen: {fileID: 0}
-  loadingBar: {fileID: 0}
+  fadeMaterial: {fileID: 2100000, guid: 04eb5630f4ec82f4a91e8e1cc2cc6c7d, type: 2}
+  fadeDuration: 1
 --- !u!82 &-1477495296940931532
 AudioSource:
   m_ObjectHideFlags: 0

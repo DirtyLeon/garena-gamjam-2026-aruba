@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public enum GameScene
@@ -13,7 +14,7 @@ public enum GameScene
 
 /// <summary>
 /// 場景載入 Singleton。
-/// 負責轉場動畫、Loading bar、轉場 SFX 的播放與停止。
+/// 負責轉場動畫（Fade + Timeline）、轉場 SFX 的播放與停止。
 /// </summary>
 public class LoadSceneSystem : MonoBehaviour
 {
@@ -30,8 +31,8 @@ public class LoadSceneSystem : MonoBehaviour
         }
     }
 
-   
-   
+  
+
     // --- Events ---
     public event Action onLoadSceneStart;
     public event Action onLoadSceneCompleted;
@@ -40,9 +41,13 @@ public class LoadSceneSystem : MonoBehaviour
     [SerializeField] private AudioClip transitionSFXClip; // 3 sec, loop
     [SerializeField] private AudioSource transitionAudioSource;
 
-    [Header("UI References")]
-    [SerializeField] private GameObject loadingScreen;     // Loading 畫面根物件
-    [SerializeField] private UnityEngine.UI.Slider loadingBar; // Loading bar
+    [Header("Fade Material")]
+    [SerializeField] private Material fadeMaterial; // SG_FadInOut.mat
+
+    [Header("Fade Settings")]
+    [SerializeField] private float fadeDuration = 1f;
+
+    private static readonly int OpacityID = Shader.PropertyToID("_Opacity");
 
     private bool isLoading;
 
@@ -56,10 +61,6 @@ public class LoadSceneSystem : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
-
-        // 初始隱藏 loading 畫面
-        if (loadingScreen != null)
-            loadingScreen.SetActive(false);
     }
 
     /// <summary>
@@ -104,12 +105,8 @@ public class LoadSceneSystem : MonoBehaviour
         isLoading = true;
 
         // ========== 階段：準備 Load Scene ==========
-        // 顯示 Loading 畫面（Loading bar 進畫面）
-        if (loadingScreen != null)
-            loadingScreen.SetActive(true);
-
-        if (loadingBar != null)
-            loadingBar.value = 0f;
+        // Fade Out（遮住畫面）: Opacity 0 → 1
+        yield return StartCoroutine(FadeMaterialOpacity(0f, 1f, fadeDuration));
 
         onLoadSceneStart?.Invoke();
 
@@ -122,18 +119,10 @@ public class LoadSceneSystem : MonoBehaviour
         PlayTransitionSFX();
 
         // ========== 階段：等待直到讀取完畢 && SFX 最後一拍 ==========
-        // 等待場景載入至 0.9（Unity 慣例，0.9 = 載入完成但尚未啟動）
         while (asyncLoad.progress < 0.9f)
         {
-            if (loadingBar != null)
-                loadingBar.value = asyncLoad.progress / 0.9f;
-
             yield return null;
         }
-
-        // 載入完成，loading bar 填滿
-        if (loadingBar != null)
-            loadingBar.value = 1f;
 
         // 等待 SFX 播完當前這一輪（對齊最後一拍）
         yield return StartCoroutine(WaitForSFXLastBeat());
@@ -149,13 +138,85 @@ public class LoadSceneSystem : MonoBehaviour
         while (!asyncLoad.isDone)
             yield return null;
 
-        // 移除讀取畫面
-        if (loadingScreen != null)
-            loadingScreen.SetActive(false);
+        // Fade In（顯示新場景）: Opacity 1 → 0
+        yield return StartCoroutine(FadeMaterialOpacity(1f, 0f, fadeDuration));
+        
+        // 新場景已載入，播放 FadeIn_Matrix 底下的 Timeline
+        yield return StartCoroutine(PlayFadeInTimeline());
+
 
         onLoadSceneCompleted?.Invoke();
 
         isLoading = false;
+    }
+
+    // --- Fade Material 控制 ---
+
+    /// <summary>
+    /// Lerp SG_FadInOut.mat 的 surfaceInput.Opacity
+    /// </summary>
+    private IEnumerator FadeMaterialOpacity(float from, float to, float duration)
+    {
+        if (fadeMaterial == null)
+        {
+            Debug.LogWarning("[LoadSceneSystem] fadeMaterial 未指定，跳過 fade。");
+            yield break;
+        }
+
+        Debug.Log($"[LoadSceneSystem] FadeMaterialOpacity 開始: {from} → {to}, 時長 {duration}s");
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            fadeMaterial.SetFloat(OpacityID, Mathf.Lerp(from, to, t));
+            
+            yield return null;
+        }
+
+        fadeMaterial.SetFloat(OpacityID, to);
+        Debug.Log($"[LoadSceneSystem] FadeMaterialOpacity 完成: Opacity = {to}");
+    }
+
+    // --- FadeIn Timeline 控制 ---
+
+    /// <summary>
+    /// 找到場景中的 FadeIn_Matrix 物件，播放它的 PlayableDirector，等待播完。
+    /// </summary>
+    private IEnumerator PlayFadeInTimeline()
+    {
+        var fadeInObj = GameObject.Find("FadeIn_Matrix");
+        if (fadeInObj == null)
+        {
+            Debug.LogWarning("[LoadSceneSystem] 場景中找不到 FadeIn_Matrix 物件，跳過 Timeline。");
+            yield break;
+        }
+
+        var timelineObj = fadeInObj.transform.Find("Timeline_FadeIn");
+        if (timelineObj == null)
+        {
+            Debug.LogWarning("[LoadSceneSystem] FadeIn_Matrix 底下找不到 Timeline_FadeIn，跳過 Timeline。");
+            yield break;
+        }
+
+        var director = timelineObj.GetComponent<PlayableDirector>();
+        if (director == null)
+        {
+            Debug.LogWarning("[LoadSceneSystem] Timeline_FadeIn 上沒有 PlayableDirector，跳過 Timeline。");
+            yield break;
+        }
+
+        director.Play();
+        Debug.Log($"[LoadSceneSystem] PlayFadeInTimeline 開始播放, 時長: {director.duration}s");
+
+        // 等待 Timeline 播放完畢
+        while (director.state == PlayState.Playing)
+        {
+            yield return null;
+        }
+
+        Debug.Log("[LoadSceneSystem] PlayFadeInTimeline 播放完畢");
     }
 
     // --- Transition SFX 控制 ---
@@ -177,7 +238,6 @@ public class LoadSceneSystem : MonoBehaviour
 
     /// <summary>
     /// 等待目前 SFX clip 播完這一輪（對齊最後一拍後再停止）。
-    /// clip 長度 3 秒，計算剩餘時間讓它自然結束這一次循環。
     /// </summary>
     private IEnumerator WaitForSFXLastBeat()
     {
