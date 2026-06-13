@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -5,19 +6,22 @@ public class Bullet : MonoBehaviour
     public Rigidbody rb;
     public float flyDuration = 1f;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        var hittable = collision.gameObject.GetComponent<IHittable>();
+        var hittable = other.GetComponent<IHittable>();
         if(hittable == null)
             return;
 
-        Debug.Log(gameObject.name + " hits " + collision.gameObject.name);
+        Debug.Log(gameObject.name + " hits " + other.gameObject.name);
         OnHit();
         hittable.OnHit();
-
     }
 
-    public void ShootAt(Transform target) => ShootAt(target.position);
+    public void ShootAt(Transform target)
+    {
+        // Optional: Position prediction fix.
+        ShootAt(target.position);
+    }
 
     public void ShootAt(Vector3 targetPosition)
     {
@@ -38,10 +42,21 @@ public class Bullet : MonoBehaviour
 
         Vector3 requiredVelocity = displacement / flyDuration;
         rb.linearVelocity = requiredVelocity;
+
+        StartCoroutine(SelfDestructCoroutine());
     }
 
     public void OnHit()
     {
         Destroy(gameObject);
+    }
+
+    private IEnumerator SelfDestructCoroutine()
+    {
+        yield return new WaitForSeconds(10f);
+        if (gameObject)
+        {
+            Destroy(gameObject);
+        }
     }
 }
