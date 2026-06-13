@@ -406,6 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 777000003}
   - component: {fileID: 777000002}
+  - component: {fileID: 777000004}
   m_Layer: 0
   m_Name: HeadHitbox
   m_TagString: Untagged
@@ -449,6 +450,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2045221861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &777000004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777000001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d79724c13ce40e98220fd4c0235469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHitbox
 --- !u!1 &777000011
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 777000013}
   - component: {fileID: 777000012}
+  - component: {fileID: 777000014}
   m_Layer: 0
   m_Name: BodyHitbox
   m_TagString: Untagged
@@ -504,6 +518,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2045221861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &777000014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777000011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d79724c13ce40e98220fd4c0235469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHitbox
 --- !u!1 &797153475
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,8 +708,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestBulletSpawner
   target: {fileID: 2045221861}
+  bulletPrefab: {fileID: 6424078777622018896, guid: b4be248f420312341ac3fa9c221b929e, type: 3}
   spawnInterval: 2
   bulletSpeed: 5
+  spawnDistance: 5
 --- !u!4 &888000003
 Transform:
   m_ObjectHideFlags: 0
@@ -1304,10 +1332,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045221859}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

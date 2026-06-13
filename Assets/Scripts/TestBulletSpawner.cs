@@ -3,6 +3,7 @@ using UnityEngine;
 public class TestBulletSpawner : MonoBehaviour
 {
     [SerializeField] private Transform target;
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float bulletSpeed = 5f;
     [SerializeField] private float spawnDistance = 5f;
@@ -28,19 +29,17 @@ public class TestBulletSpawner : MonoBehaviour
 
     private void SpawnBullet()
     {
-        var bullet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        bullet.name = "Bullet";
+        var bullet = Instantiate(bulletPrefab);
+        bullet.transform.rotation = Quaternion.Euler(0, -90f, 0);
 
-        // Random height: sometimes head, sometimes body, sometimes miss (too high/low)
+        // Random height offset
         float randomY = transform.position.y + Random.Range(-0.8f, 0.8f);
         bullet.transform.position = new Vector3(transform.position.x, randomY, transform.position.z);
-        bullet.transform.localScale = Vector3.one * 0.2f;
 
-        // Make it red
-        bullet.GetComponent<Renderer>().material.color = Color.red;
-
-        // Set collider as trigger
-        bullet.GetComponent<SphereCollider>().isTrigger = true;
+        // Add sphere collider
+        var col = bullet.AddComponent<SphereCollider>();
+        col.radius = 0.3f;
+        col.isTrigger = true;
 
         // Add rigidbody for movement
         var rb = bullet.AddComponent<Rigidbody>();
@@ -62,6 +61,7 @@ public class TestBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_hit) return;
         if (!other.name.Contains("Hitbox")) return;
         _hit = true;
         Debug.Log($"<color=red>命中！</color> 碰到: {other.name}");
@@ -77,5 +77,13 @@ public class TestBullet : MonoBehaviour
     {
         if (!_hit)
             Debug.Log("<color=green>未命中！子彈飛過去了</color>");
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        var col = GetComponent<SphereCollider>();
+        if (col != null)
+            Gizmos.DrawWireSphere(transform.TransformPoint(col.center), col.radius * transform.lossyScale.x);
     }
 }
