@@ -20,8 +20,8 @@ public class HitIndicator : MonoBehaviour
     {
 
         fill.rectTransform.localScale = Vector3.zero;
-        canvasGroup.DOFade(1, .3f).ToUniTask().Forget();
-        await fill.rectTransform.DOScale(1f, duration);
+        canvasGroup.DOFade(1, .3f);
+        await fill.rectTransform.DOScale(1f, duration).AsyncWaitForCompletion();
         canvasGroup.alpha = 0f;
     }
 }
