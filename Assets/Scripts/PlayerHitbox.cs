@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class PlayerHitbox : MonoBehaviour
 {
+    private void OnTriggerEnter(Collider other)
+    {
+        var bullet = other.GetComponentInParent<TestBullet>();
+        if (bullet == null) bullet = other.GetComponent<TestBullet>();
+        if (bullet == null) return;
+
+        bullet.Hit(gameObject.name);
+    }
+
     private void OnDrawGizmos()
     {
         var sphere = GetComponent<SphereCollider>();
@@ -17,13 +26,7 @@ public class PlayerHitbox : MonoBehaviour
         {
             Gizmos.color = Color.yellow;
             var center = transform.TransformPoint(capsule.center);
-            var up = transform.up * (capsule.height * 0.5f - capsule.radius);
-            Gizmos.DrawWireSphere(center + up, capsule.radius);
-            Gizmos.DrawWireSphere(center - up, capsule.radius);
-            Gizmos.DrawLine(center + up + transform.right * capsule.radius, center - up + transform.right * capsule.radius);
-            Gizmos.DrawLine(center + up - transform.right * capsule.radius, center - up - transform.right * capsule.radius);
-            Gizmos.DrawLine(center + up + transform.forward * capsule.radius, center - up + transform.forward * capsule.radius);
-            Gizmos.DrawLine(center + up - transform.forward * capsule.radius, center - up - transform.forward * capsule.radius);
+            Gizmos.DrawWireSphere(center, capsule.radius);
         }
     }
 }

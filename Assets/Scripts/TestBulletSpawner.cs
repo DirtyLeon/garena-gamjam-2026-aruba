@@ -33,19 +33,11 @@ public class TestBulletSpawner : MonoBehaviour
         bullet.transform.rotation = Quaternion.Euler(0, -90f, 0);
 
         // Random height offset
-        float randomY = transform.position.y + Random.Range(-0.8f, 0.8f);
+        float randomY = Random.Range(1.2f, 1.7f);
         bullet.transform.position = new Vector3(transform.position.x, randomY, transform.position.z);
 
-        // Add sphere collider
-        var col = bullet.AddComponent<SphereCollider>();
-        col.radius = 0.3f;
-        col.isTrigger = true;
-
-        // Add rigidbody for movement
-        var rb = bullet.AddComponent<Rigidbody>();
-        rb.useGravity = false;
-
         // Shoot horizontally toward target
+        var rb = bullet.GetComponent<Rigidbody>();
         var dir = (target.position - transform.position);
         dir.y = 0;
         rb.linearVelocity = dir.normalized * bulletSpeed;
@@ -59,12 +51,11 @@ public class TestBullet : MonoBehaviour
 {
     private bool _hit;
 
-    private void OnTriggerEnter(Collider other)
+    public void Hit(string hitboxName)
     {
         if (_hit) return;
-        if (!other.name.Contains("Hitbox")) return;
         _hit = true;
-        Debug.Log($"<color=red>命中！</color> 碰到: {other.name}");
+        Debug.Log($"<color=red>命中！</color> 碰到: {hitboxName}");
         Destroy(gameObject);
     }
 
