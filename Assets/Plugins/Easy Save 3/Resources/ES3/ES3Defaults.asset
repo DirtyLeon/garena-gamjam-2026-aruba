@@ -35,19 +35,8 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - Assembly-CSharp
     - Assembly-CSharp-firstpass
-    - Autodesk.Fbx
-    - Autodesk.Fbx.BuildTestAssets
-    - DirtyWorks.Universial-Debug-Trigger
-    - Lofelt.NiceVibrations
-    - Lofelt.NiceVibrations.Demo
-    - MoreMountains.Tools
-    - UniTask
-    - UniTask.Addressables
-    - UniTask.DOTween
-    - UniTask.Linq
-    - UniTask.TextMeshPro
+    - Assembly-CSharp
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
