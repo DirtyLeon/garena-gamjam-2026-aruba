@@ -20,8 +20,9 @@ MonoBehaviour:
     rid: 6993359189961605200
   m_OverrideGlobalSceneList: 0
   m_Scenes: []
-  m_HasScriptingDefines: 0
-  m_ScriptingDefines: []
+  m_HasScriptingDefines: 1
+  m_ScriptingDefines:
+  - MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED
   m_PlayerSettingsYaml:
     m_Settings:
     - line: '| PlayerSettings:'
@@ -854,24 +855,25 @@ MonoBehaviour:
     - line: '|   webWasm2023: 0'
     - line: '|   webEnableSubmoduleStrippingCompatibility: 0'
     - line: '|   scriptingDefineSymbols:'
-    - line: '|     Android: DOTWEEN'
-    - line: '|     EmbeddedLinux: DOTWEEN'
+    - line: '|     Android: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     EmbeddedLinux: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
     - line: '|     GameCoreScarlett: DOTWEEN'
     - line: '|     GameCoreXboxOne: DOTWEEN'
     - line: '|     Kepler: DOTWEEN'
-    - line: '|     LinuxHeadlessSimulation: DOTWEEN'
-    - line: '|     Nintendo Switch: DOTWEEN'
-    - line: '|     Nintendo Switch 2: DOTWEEN'
-    - line: '|     PS4: DOTWEEN'
-    - line: '|     PS5: DOTWEEN'
-    - line: '|     QNX: DOTWEEN'
-    - line: '|     Standalone: DOTWEEN'
-    - line: '|     VisionOS: DOTWEEN'
-    - line: '|     WebGL: DOTWEEN'
-    - line: '|     Windows Store Apps: DOTWEEN'
-    - line: '|     XboxOne: DOTWEEN'
-    - line: '|     iPhone: DOTWEEN'
-    - line: '|     tvOS: DOTWEEN'
+    - line: '|     LinuxHeadlessSimulation: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     Nintendo Switch: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     Nintendo Switch 2: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     PS4: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     PS5: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     QNX: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     Server: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     Standalone: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     VisionOS: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     WebGL: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI;UNITASK_DOTWEEN_SUPPORT'
+    - line: '|     Windows Store Apps: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     XboxOne: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     iPhone: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
+    - line: '|     tvOS: DOTWEEN;UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI'
     - line: '|   additionalCompilerArguments: {}'
     - line: '|   platformArchitecture: {}'
     - line: '|   scriptingBackend:'
