@@ -37,8 +37,11 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
+<<<<<<< HEAD
+=======
     - Autodesk.Fbx
     - Autodesk.Fbx.BuildTestAssets
+>>>>>>> main
     - Lofelt.NiceVibrations
     - Lofelt.NiceVibrations.Demo
     - MoreMountains.Tools
