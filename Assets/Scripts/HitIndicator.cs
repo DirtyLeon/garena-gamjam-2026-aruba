@@ -18,7 +18,6 @@ public class HitIndicator : MonoBehaviour
     
     private async UniTask HitIncoming(float duration)
     {
-
         fill.rectTransform.localScale = Vector3.zero;
         canvasGroup.DOFade(1, .3f);
         await fill.rectTransform.DOScale(1f, duration).AsyncWaitForCompletion();
