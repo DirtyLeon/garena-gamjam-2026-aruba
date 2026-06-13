@@ -38,6 +38,8 @@ MonoBehaviour:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - DirtyWorks.Universial-Debug-Trigger
+    - Autodesk.Fbx
+    - Autodesk.Fbx.BuildTestAssets
     - Lofelt.NiceVibrations
     - Lofelt.NiceVibrations.Demo
     - MoreMountains.Tools
